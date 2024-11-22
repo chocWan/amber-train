@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "/home/xtest/miniforge3/envs/llm-360/bin/python",
+    "terminal.integrated.env.linux": {
+        "CONDA_DEFAULT_ENV": "llm-360"
+    }
+}

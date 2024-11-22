@@ -1,0 +1,24 @@
+{
+    "_name_or_path": "/home/sgugger/tmp/llama/llama-7b/",// 模型的路径，指向本地存储的模型目录
+    "architectures": [
+        "LlamaForCausalLM"
+    ],// 定义了模型的架构类型，例如 "LlamaForCausalLM" 代表因果语言模型（适合生成文本任务）
+    "bos_token_id": 1, // 开始标记 (Begin of Sequence) 的 token ID，通常用于标记生成文本的起始
+    "eos_token_id": 2, // 结束标记 (End of Sequence) 的 token ID，表示生成结束
+    "hidden_act": "silu", // 隐藏层的激活函数，这里使用的是 "silu"（Sigmoid Linear Unit），一种非线性激活函数。
+    "hidden_size": 4096, // 每层 Transformer 模型的隐藏层维度，值为 4096，表明这是一个较大的模型
+    "initializer_range": 0.02, // 权重初始化的标准差，值为 0.02，控制模型权重的初始分布范围
+    "intermediate_size": 11008, // 前馈网络（Feed-Forward Network, FFN）的中间层大小，值为 11008，表示隐藏层投影到更高维度以进行计算
+    "max_position_embeddings": 2048, // 该参数决定模型中可用位置编码的数量，即模型最多支持 2048 个 token 的输入
+    "max_sequence_length": 2048, // 该参数是任务级的约束，通常由数据预处理阶段或应用程序逻辑设置，是一个任务级限制，确保每次生成时不会超过最大序列长度
+    "model_type": "llama",
+    "num_attention_heads": 32, // 注意力头的数量，值为 32，用于分头计算注意力
+    "num_hidden_layers": 32, // Transformer 块的层数，值为 32，对应模型的深度
+    "pad_token_id": 0, // 填充标记 (Padding Token) 的 ID，用于补齐短序列，使其与批处理中最长的序列长度一致
+    "rms_norm_eps": 1e-06, //  RMSNorm 层的 epsilon 参数，用于避免除零错误，值为 1e-06
+    "tie_word_embeddings": false, // 是否将词嵌入（输入和输出的 embedding）绑定为同一权重，值为 false 表明输入和输出的嵌入层权重独立
+    "torch_dtype": "float16", //  模型计算所用的数据类型，这里为 float16，表示使用 16 位浮点数，能够在性能与精度之间取得平衡
+    "transformers_version": "4.28.0.dev0", // 模型所依赖的 transformers 库版本，这里为 4.28.0.dev0，表明模型使用了开发版
+    "use_cache": true, // 是否启用缓存机制（通常用于加速推理），值为 true 表示启用
+    "vocab_size": 32000 // 模型词汇表大小，值为 32000，即支持 32000 个词或 token
+}

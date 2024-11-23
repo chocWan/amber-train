@@ -18,19 +18,27 @@ def load_jsonl_examples(filename,
                         global_micro_batch_size,
                         global_rank,
                         world_size):
-    example_idxes = np.random.permutation(n_examples) if shuffle \
-        else np.arange(n_examples)
+    # 计算文件总行数
+    with open(filename, 'r') as f:
+        total_lines = sum(1 for _ in f)
 
-    n_examples = n_examples // global_micro_batch_size * global_micro_batch_size
-    example_idxes = example_idxes[global_rank:n_examples:world_size]
+    # 限制 example_idxes 范围
+    n_examples = min(n_examples, total_lines)
+    example_idxes = np.random.permutation(n_examples) if shuffle else np.arange(n_examples)
 
+    # 初始化 examples 字典
     examples = {idx: None for idx in example_idxes}
-    for example_idx, line in tqdm.tqdm(
-            enumerate(open(filename)), desc=f'loading {filename}'):
-        if example_idx in examples:
-            examples[example_idx] = json.loads(line)
 
-    return [examples[idx] for idx in example_idxes]
+    # 读取 JSON 文件并加载数据
+    with open(filename, 'r') as f:
+        for current_idx, line in tqdm.tqdm(enumerate(f), desc=f'loading {filename}'):
+            if current_idx in examples:
+                try:
+                    examples[current_idx] = json.loads(line)
+                except json.JSONDecodeError:
+                    print(f"Warning: Failed to decode JSON for line {current_idx}")
+    examples = [examples[idx] for idx in example_idxes]
+    return examples
 
 
 def get_cosine_lr_decay_fn(total_steps,

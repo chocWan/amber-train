@@ -1,18 +1,19 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: Debug main",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/main.py", // 脚本路径
+            "console": "integratedTerminal", // 使用集成终端
             "env": {
-                "PYTHONPATH": "/home/xtest/miniforge3/envs/llm-360/bin/python"
-            }
+                "PYTHONPATH": "/home/xtest/miniforge3/envs/llm-360"
+            },
+            "args": [
+                "--n_nodes",
+                "1"
+            ]
         }
     ]
 }

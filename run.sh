@@ -9,4 +9,4 @@
 #SBATCH --error=slurm_%j.err
 #SBATCH --reservation=training
 
-srun python main.py --n_nodes 56 --run_wandb
+python main.py --n_nodes 1 --run_wandb
